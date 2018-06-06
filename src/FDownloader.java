@@ -146,7 +146,7 @@ public class FDownloader {
                     int total = 0;
                     int flag=1;
                     while((length=inputStream.read(buffer))>0){
-                        if(isCancel||isPause){
+                        if(isCancel||isPause){//线程读取时跳出 可以提前结束线程 变相销毁线程
                             break;
                         }
                         randomAccessFile1.write(buffer,0,length);
