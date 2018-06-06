@@ -1,17 +1,47 @@
-# MultiThreadDownload
-----
-多线程下载工具类 
-====
-builer模式<br>
-下载步骤：<br>
-1、用HttpURLConnection获得文件大小<br>
-2、利用RandowAccessFile可以很容易地操作文件<br>
-3、给每个线程分配起始点<br>
-4、启动下载线程<br>
-5、判断有没有保存上次下载的临时文件<br>
-6、启动线程下载的时候保存下载的位置信息<br>
-7、下载完毕后删除这些临时文件<br>
+#多线程下载工具类 
+使用了builer模式 方便构造<br>
 
-增加了GUI界面 便于使用 不过有一些bug。。暂时没找到好的解决方法<br>
+设置了回答监听 方便操作<br>
 
-<img  height="300" src="https://github.com/fengxinyao1/MultiThreadDownload/blob/master/photo.png"/><br>
+但是不支持一个downloader下载多个文件 想要下载多个文件只有开启多个downloader<br>
+
+初始化监听
+```java
+      FDownloader.DownloadListener listener = new FDownloader.DownloadListener() {
+                  @Override
+                  public void onSuccess() {//成功
+                      System.out.println("成功");
+                  }
+
+                  @Override
+                  public void onFailed() {//失败
+                      System.out.println("失败");
+                  }
+
+                  @Override
+                  public void onProgress(int progress) {//回调进度
+                      System.out.println(progress+"%");
+                  }
+
+                  @Override
+                  public void onLoadInfo(String info) {//回调信息
+                      System.out.println(info);
+                  }
+              };
+```
+```java
+初始化Downloader并设置监听
+    FDownloader download = new FDownloader(listener)
+                    .URLPath("http://mpge.5nd.com/2016/2016-11-15/74847/1.mp3")
+                    .SavePath(null)
+                    .ThreadCount(4);
+```
+
+```java
+提供的方法：
+     download.start();
+     download.pause();
+     download.restart();
+     download.cancel();
+
+```
