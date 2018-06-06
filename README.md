@@ -1,11 +1,12 @@
-#多线程下载工具类 
-使用了builer模式 方便构造<br>
+# 多线程下载工具类 
+=====
+#### 使用了builer模式 方便构造<br>
 
-设置了回答监听 方便操作<br>
+#### 设置了回答监听 方便操作<br>
 
-但是不支持一个downloader下载多个文件 想要下载多个文件只有开启多个downloader<br>
+#### 但是不支持一个downloader下载多个文件 想要下载多个文件只有开启多个downloader<br>
 
-初始化监听
+### 初始化监听
 ```java
       FDownloader.DownloadListener listener = new FDownloader.DownloadListener() {
                   @Override
@@ -29,16 +30,15 @@
                   }
               };
 ```
+### 初始化Downloader并设置监听
 ```java
-初始化Downloader并设置监听
     FDownloader download = new FDownloader(listener)
                     .URLPath("http://mpge.5nd.com/2016/2016-11-15/74847/1.mp3")
                     .SavePath(null)
                     .ThreadCount(4);
 ```
-
+### 提供的方法：
 ```java
-提供的方法：
      download.start();
      download.pause();
      download.restart();
